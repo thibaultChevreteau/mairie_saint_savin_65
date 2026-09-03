@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: owner/repo # TODO: renseigner "organisation-ou-utilisateur/nom-du-repo" une fois le repo GitHub créé
+  repo: thibaultChevreteau/mairie_saint_savin_65
   branch: main
 
 local_backend: true
