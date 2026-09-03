@@ -1,0 +1,32 @@
+---
+import { ArrowRight } from 'lucide-astro'
+
+interface Props {
+	date: Date
+	category: string
+	title: string
+	text: string
+	image: string
+}
+
+const { date, category, title, text, image } = Astro.props
+
+const formattedDate = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+---
+
+<article class="group overflow-hidden rounded-xl border border-border bg-card">
+	<div class="aspect-[1.8] overflow-hidden">
+		<img src={image} alt="" class="size-full object-cover grayscale-[20%] transition duration-500 group-hover:scale-105" />
+	</div>
+	<div class="p-5">
+		<div class="flex items-center justify-between gap-3">
+			<time datetime={date.toISOString()} class="text-xs text-muted-foreground">{formattedDate}</time>
+			<span class="rounded-full bg-secondary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-secondary-foreground">{category}</span>
+		</div>
+		<h3 class="mt-4 font-serif text-xl leading-tight text-primary">{title}</h3>
+		<p class="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
+		<a href="#actualités" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+			Lire la suite <ArrowRight class="size-3.5" />
+		</a>
+	</div>
+</article>

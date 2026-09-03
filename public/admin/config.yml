@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: owner/repo # TODO: renseigner "organisation-ou-utilisateur/nom-du-repo" une fois le repo GitHub créé
+  branch: main
+
+local_backend: true
+
+media_folder: "public/images/news"
+public_folder: "/images/news"
+
+collections:
+  - name: "news"
+    label: "Actualités"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Catégorie", name: "category", widget: "string" }
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Texte", name: "text", widget: "text" }
+      - { label: "Image", name: "image", widget: "image" }
