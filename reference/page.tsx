@@ -2,7 +2,7 @@
 
 import {
   ArrowRight,
-  CalendarDays,
+  Bell,
   ChevronRight,
   Clock3,
   Download,
@@ -12,8 +12,9 @@ import {
   Menu,
   Phone,
   Search,
-  Send,
+  Trash2,
   Users,
+  Volume2,
   X,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -100,7 +101,7 @@ export default function Page() {
 
         <section className="border-y border-border bg-card" aria-labelledby="infos-pratiques">
           <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8"><div className="mb-5 flex items-center gap-3"><span className="h-px w-8 bg-secondary" /><h2 id="infos-pratiques" className="font-serif text-2xl text-primary">Infos pratiques</h2></div><div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-            {[['Horaires Mairie', Clock3], ['Démarches en ligne', FileText], ['Signalement', Send], ['Réservation Salle des Fêtes', CalendarDays]].map(([label, Icon]) => <a href="#contact" key={label as string} className="group flex min-h-24 flex-col justify-between rounded-xl border border-border bg-background p-4 transition hover:-translate-y-0.5 hover:border-primary sm:min-h-28 sm:p-5"><Icon className="size-5 text-secondary" /><span className="flex items-end justify-between gap-2 text-sm font-semibold text-primary">{label as string}<ChevronRight className="size-4 transition group-hover:translate-x-1" /></span></a>)}
+            {[['Horaires Mairie', Clock3], ['Rester informé', Bell], ['Ramassage des ordures', Trash2], ['Nuisances sonores', Volume2]].map(([label, Icon]) => <a href="#contact" key={label as string} className="group flex min-h-24 flex-col justify-between rounded-xl border border-border bg-background p-4 transition hover:-translate-y-0.5 hover:border-primary sm:min-h-28 sm:p-5"><Icon className="size-5 text-secondary" /><span className="flex items-end justify-between gap-2 text-sm font-semibold text-primary">{label as string}<ChevronRight className="size-4 transition group-hover:translate-x-1" /></span></a>)}
           </div></div>
         </section>
 

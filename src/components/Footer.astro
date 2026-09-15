@@ -1,0 +1,51 @@
+---
+import { Mail, MapPin, Phone, Users } from 'lucide-astro';
+---
+
+<footer id="contact" class="bg-background px-4 py-12 lg:px-8">
+	<div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1fr] md:gap-16">
+		<div>
+			<div class="flex items-center gap-3">
+				<img src="/logo_mairie_st_savin65_no-text.svg" alt="Logo Mairie de Saint-Savin" class="h-10 w-auto object-contain" />
+				<span class="font-serif text-xl font-semibold text-primary">Mairie de Saint-Savin</span>
+			</div>
+			<p class="mt-5 max-w-xs text-sm leading-6 text-muted-foreground">
+				Une commune vivante, accueillante et engagée pour préserver son patrimoine.
+			</p>
+			<div class="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-semibold text-primary">
+				<Users class="size-4" /> Retrouvez-nous sur PanneauPocket
+			</div>
+		</div>
+		<div>
+			<h2 class="font-serif text-lg text-primary">Nous contacter</h2>
+			<div class="mt-4 space-y-3 text-sm text-muted-foreground">
+				<p class="flex gap-3">
+					<MapPin class="size-4 shrink-0 text-secondary" /> 1, place de la Mairie<br />65400 Saint-Savin
+				</p>
+				<p class="flex items-center gap-3">
+					<Phone class="size-4 shrink-0 text-secondary" /> 05 62 92 70 52
+				</p>
+				<p class="flex items-center gap-3">
+					<Mail class="size-4 shrink-0 text-secondary" /> mairie@saint-savin.fr
+				</p>
+			</div>
+		</div>
+		<div>
+			<h2 class="font-serif text-lg text-primary">Horaires d’accueil</h2>
+			<p class="mt-4 text-sm leading-6 text-muted-foreground">
+				Lundi, mercredi, vendredi<br />
+				<strong class="font-semibold text-primary">9h00 – 12h00</strong><br /><br />
+				Mardi et jeudi<br />
+				<strong class="font-semibold text-primary">9h00 – 12h00 · 14h00 – 17h00</strong>
+			</p>
+		</div>
+	</div>
+	<div class="mx-auto mt-10 flex max-w-7xl flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+		<span>© 2026 Mairie de Saint-Savin</span>
+		<div class="flex gap-5">
+			<a href="#contact" class="hover:text-primary">Mentions légales</a>
+			<a href="#contact" class="hover:text-primary">RGPD</a>
+			<a href="#contact" class="hover:text-primary">Accessibilité</a>
+		</div>
+	</div>
+</footer>

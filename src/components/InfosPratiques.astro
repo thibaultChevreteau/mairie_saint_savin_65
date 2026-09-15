@@ -1,0 +1,40 @@
+---
+import { ArrowRight, CalendarDays, ChevronRight, Clock3, FileText, Send } from 'lucide-astro';
+
+const items = [
+	{ label: 'Horaires Mairie', icon: Clock3, href: '#contact' },
+	{ label: 'Démarches en ligne', icon: FileText, href: '#contact' },
+	{ label: 'Signalement', icon: Send, href: '#contact' },
+	{ label: 'Réservation Salle des Fêtes', icon: CalendarDays, href: '#contact' },
+];
+---
+
+<section class="border-y border-border bg-card" aria-labelledby="infos-pratiques">
+	<div class="mx-auto max-w-7xl px-4 py-8 lg:px-8">
+		<div class="mb-5 flex items-center justify-between gap-4">
+			<div class="flex items-center gap-3">
+				<span class="h-px w-8 bg-secondary"></span>
+				<h2 id="infos-pratiques" class="font-serif text-2xl text-primary">Infos pratiques</h2>
+			</div>
+			<a href="#infos-pratiques" class="hidden items-center gap-2 text-sm font-semibold text-primary sm:flex">
+				Toutes les infos pratiques <ArrowRight class="size-4" />
+			</a>
+		</div>
+		<div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+			{
+				items.map(({ label, icon: Icon, href }) => (
+					<a
+						href={href}
+						class="group flex min-h-24 flex-col justify-between rounded-xl border border-border bg-background p-4 transition hover:-translate-y-0.5 hover:border-primary sm:min-h-28 sm:p-5"
+					>
+						<Icon class="size-5 text-secondary" />
+						<span class="flex items-end justify-between gap-2 text-sm font-semibold text-primary">
+							{label}
+							<ChevronRight class="size-4 transition group-hover:translate-x-1" />
+						</span>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>

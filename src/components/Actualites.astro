@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { ArrowRight } from 'lucide-astro';
+import NewsCard from './NewsCard.astro';
+
+const allNews = await getCollection('news');
+const news = allNews
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+	.slice(0, 4);
+---
+
+<section id="actualités" class="mx-auto max-w-7xl px-4 py-14 lg:px-8 lg:py-20" aria-labelledby="actualites-title">
+	<div class="mb-8 flex items-end justify-between gap-4">
+		<div>
+			<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">La vie du village</p>
+			<h2 id="actualites-title" class="font-serif text-3xl text-primary sm:text-4xl">Actualités de la commune</h2>
+		</div>
+		<a href="#actualités" class="hidden items-center gap-2 text-sm font-semibold text-primary sm:flex">
+			Toutes les actualités <ArrowRight class="size-4" />
+		</a>
+	</div>
+	<div class="grid gap-5 sm:grid-cols-2">
+		{
+			news.map((item) => (
+				<NewsCard
+					date={item.data.date}
+					category={item.data.category}
+					title={item.data.title}
+					text={item.data.text}
+					image={item.data.image}
+				/>
+			))
+		}
+	</div>
+</section>

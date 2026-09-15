@@ -1,34 +1,31 @@
 ---
-import { getCollection } from 'astro:content';
 import Header from '../components/Header.astro';
-import NewsCard from '../components/NewsCard.astro';
+import Hero from '../components/Hero.astro';
+import InfosPratiques from '../components/InfosPratiques.astro';
+import Actualites from '../components/Actualites.astro';
+import Transparence from '../components/Transparence.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-
-const news = await getCollection('news');
 ---
 
-
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Mairie de Saint-Savin</title>
 	</head>
-	<body>
+	<body class="min-h-screen bg-background text-foreground">
 		<Header />
-		<section class="mx-auto max-w-7xl px-4 py-14 grid gap-5 sm:grid-cols-2">
-      {news.map((item) => (
-        <NewsCard
-          date={item.data.date}
-          category={item.data.category}
-          title={item.data.title}
-          text={item.data.text}
-          image={item.data.image}
-        />
-      ))}
-    </section>
+		<main id="accueil">
+			<Hero />
+			<InfosPratiques />
+			<Actualites />
+			<Transparence />
+		</main>
+		<Footer />
 	</body>
 </html>

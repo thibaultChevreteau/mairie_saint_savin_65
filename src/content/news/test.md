@@ -1,4 +1,5 @@
 ---
+date: 2026-08-15
 category: test
 title: test
 text: test
