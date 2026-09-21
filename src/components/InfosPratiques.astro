@@ -3,7 +3,7 @@ import { ArrowRight, Bell, ChevronRight, Clock3, Trash2, Volume2 } from 'lucide-
 
 const items = [
 	{ label: 'Horaires Mairie', icon: Clock3, href: '#contact' },
-	{ label: 'Rester informé', icon: Bell, href: '#contact' },
+	{ label: 'Rester informé', icon: Bell, href: '#contact', badge: true },
 	{ label: 'Ramassage des ordures', icon: Trash2, href: '#contact' },
 	{ label: 'Nuisances sonores', icon: Volume2, href: '#contact' },
 ];
@@ -22,12 +22,22 @@ const items = [
 		</div>
 		<div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
 			{
-				items.map(({ label, icon: Icon, href }) => (
+				items.map(({ label, icon: Icon, href, badge }) => (
 					<a
 						href={href}
 						class="group flex min-h-24 flex-col justify-between rounded-xl border border-border bg-background p-4 transition hover:-translate-y-0.5 hover:border-primary sm:min-h-28 sm:p-5"
 					>
-						<Icon class="size-5 text-secondary" />
+						<div class="flex items-center justify-between gap-2">
+							<Icon class="size-5 text-secondary shrink-0" />
+							{badge && (
+								/* Pilule unique avec fond bg-accent */
+								<div class="inline-flex items-center gap-2 rounded-full bg-accent p-1.5 text-xs font-semibold text-primary sm:px-3 sm:py-1">
+									<img src="/logo_panneau_pocket.svg" alt="Logo PanneauPocket" class="h-4 w-auto object-contain sm:h-5" />
+									{/* Le texte est masqué sur mobile et apparaît sur desktop */}
+									<span class="hidden sm:inline">Panneau Pocket</span>
+								</div>
+							)}
+						</div>
 						<span class="flex items-end justify-between gap-2 text-sm font-semibold text-primary">
 							{label}
 							<ChevronRight class="size-4 transition group-hover:translate-x-1" />
