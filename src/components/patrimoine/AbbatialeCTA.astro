@@ -1,0 +1,32 @@
+---
+import { Download, Users } from 'lucide-astro';
+---
+
+<section class="bg-primary px-4 py-14 text-primary-foreground lg:px-8 lg:py-16">
+	<div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+		<div>
+			<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-accent">
+				Fonds de dotation
+			</p>
+			<h2 class="font-serif text-3xl sm:text-4xl">Mobilisons-nous pour notre patrimoine</h2>
+			<p class="mt-4 max-w-2xl text-sm leading-7 text-primary-foreground/75">
+				La commune, avec le soutien de la Fondation du Patrimoine, ouvre un fonds de dotation pour
+				fédérer habitants, entreprises et amoureux de Saint-Savin autour de ce projet essentiel.
+			</p>
+		</div>
+		<div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+			<a
+				href="#contact"
+				class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-primary transition hover:bg-accent/90"
+			>
+				<Download class="size-4" /> Formulaire de don (PDF)
+			</a>
+			<a
+				href="#contact"
+				class="inline-flex items-center justify-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-semibold text-accent transition hover:bg-accent/10"
+			>
+				<Users class="size-4" /> Devenir partenaire
+			</a>
+		</div>
+	</div>
+</section>

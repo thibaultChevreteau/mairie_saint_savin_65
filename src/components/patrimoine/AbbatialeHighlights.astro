@@ -1,0 +1,62 @@
+---
+import { HeartHandshake, Landmark, Sparkles } from 'lucide-astro';
+
+const highlights = [
+	{
+		title: 'Un chef-d’œuvre du XIIe siècle',
+		text: 'Une architecture romane remarquable, classée Monument Historique dès 1840.',
+		image: '/roman-abbey-detail.png',
+		icon: Landmark,
+	},
+	{
+		title: 'Un orgue d’exception (1557)',
+		text: 'L’un des plus anciens orgues jouables de France, au cœur des concerts de la commune.',
+		image: '/saint-savin-organ.png',
+		icon: Sparkles,
+	},
+	{
+		title: 'Un haut lieu de culture & pèlerinage',
+		text: 'Concerts, Journées Européennes du Patrimoine et étape sur les chemins près de Lourdes.',
+		image: '/abbey-cultural-life.png',
+		icon: HeartHandshake,
+	},
+];
+---
+
+<section class="border-y border-border bg-card px-4 py-14 lg:px-8 lg:py-20">
+	<div class="mx-auto max-w-7xl">
+		<div class="mb-8 max-w-2xl">
+			<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+				Un héritage à protéger
+			</p>
+			<h2 class="font-serif text-3xl text-primary sm:text-4xl">
+				L’Abbatiale, bien plus qu’un monument
+			</h2>
+		</div>
+		<div class="grid gap-5 md:grid-cols-3">
+			{
+				highlights.map((item) => {
+					const IconComponent = item.icon;
+					return (
+						<article class="overflow-hidden rounded-xl border border-border bg-background">
+							<div class="aspect-[1.7] overflow-hidden">
+								<img
+									src={item.image}
+									alt={item.title}
+									class="size-full object-cover transition duration-500 hover:scale-105"
+								/>
+							</div>
+							<div class="p-5">
+								<IconComponent class="size-5 text-secondary" />
+								<h3 class="mt-4 font-serif text-xl leading-tight text-primary">
+									{item.title}
+								</h3>
+								<p class="mt-2 text-sm leading-6 text-muted-foreground">{item.text}</p>
+							</div>
+						</article>
+					);
+				})
+			}
+		</div>
+	</div>
+</section>

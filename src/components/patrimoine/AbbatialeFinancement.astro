@@ -1,0 +1,60 @@
+---
+import { ArrowRight, Sparkles } from 'lucide-astro';
+
+const donationUrl = 'https://www.fondation-patrimoine.org/';
+---
+
+<section id="projet" class="mx-auto max-w-7xl scroll-mt-6 px-4 py-14 lg:px-8 lg:py-20">
+	<div class="rounded-2xl bg-accent p-6 sm:p-8 lg:p-10">
+		<div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
+			<div>
+				<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-primary/65">
+					Campagne de mécénat &amp; appel aux dons
+				</p>
+				<h2 class="font-serif text-3xl text-primary sm:text-4xl">Chaque don compte pour l’Abbatiale</h2>
+			</div>
+			<span class="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-background/50 px-3 py-2 text-xs font-bold text-primary">
+				<Sparkles class="size-4 text-secondary" /> Mission Bern · Loto du Patrimoine
+			</span>
+		</div>
+		<div class="mt-8 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+			<div>
+				<div class="flex items-end justify-between gap-4">
+					<span class="text-sm font-semibold text-primary">147 980 € collectés</span>
+					<span class="font-serif text-2xl text-primary">82<span class="text-base">%</span></span>
+				</div>
+				<div class="mt-3 h-3 overflow-hidden rounded-full bg-primary/15">
+					<div class="h-full w-[82%] rounded-full bg-secondary"></div>
+				</div>
+				<div class="mt-6 grid grid-cols-3 gap-4 border-t border-primary/15 pt-5">
+					<div>
+						<p class="text-xs text-primary/60">Objectif</p>
+						<p class="mt-1 font-semibold text-primary">180 000 €</p>
+					</div>
+					<div>
+						<p class="text-xs text-primary/60">Donateurs</p>
+						<p class="mt-1 font-semibold text-primary">352</p>
+					</div>
+					<div>
+						<p class="text-xs text-primary/60">Budget global</p>
+						<p class="mt-1 font-semibold text-primary">~1 M€</p>
+					</div>
+				</div>
+			</div>
+			<div class="rounded-xl bg-background/65 p-5">
+				<p class="text-xs font-bold uppercase tracking-wide text-secondary">Votre avantage fiscal</p>
+				<p class="mt-2 font-serif text-xl leading-tight text-primary">
+					Vos dons sont défiscalisés à hauteur de 66% pour les particuliers et 60% pour les entreprises.
+				</p>
+				<a
+					href={donationUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+				>
+					Faire un don en ligne <ArrowRight class="size-4" />
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
