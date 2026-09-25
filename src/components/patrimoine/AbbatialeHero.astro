@@ -1,7 +1,7 @@
 ---
-import { ArrowDown, ExternalLink } from 'lucide-astro';
+import { ExternalLink } from 'lucide-astro';
 
-const donationUrl = 'https://www.fondation-patrimoine.org/';
+const donationUrl = 'https://www.fondation-patrimoine.org/les-projets/abbatiale-de-saint-savin-dans-les-hautes-pyrenees/76006';
 ---
 
 <section class="border-b border-border bg-accent/45 px-4 py-8 lg:px-8 lg:py-12">
@@ -19,32 +19,24 @@ const donationUrl = 'https://www.fondation-patrimoine.org/';
 					<span class="h-px w-8 bg-secondary"></span> Projet de sauvegarde
 				</p>
 				<h1 class="max-w-3xl font-serif text-4xl leading-[1.04] text-primary sm:text-5xl lg:text-6xl">
-					Restauration &amp; Sauvegarde de l’Abbatiale de Saint-Savin
+					Restauration de l’Abbatiale de Saint-Savin
 				</h1>
 				<p class="mt-6 max-w-2xl text-lg leading-8 text-primary/75">
 					Soutenez la préservation d’un joyau roman du XIIe siècle au cœur des Hautes-Pyrénées.
 				</p>
-				<div class="mt-8 flex flex-col gap-3 sm:flex-row">
-					<a
-						href={donationUrl}
-						target="_blank"
-						rel="noreferrer"
-						class="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-					>
-						Je donne <span class="hidden sm:inline">(Fondation du Patrimoine)</span>
-						<ExternalLink class="size-4" />
-					</a>
-					<a
-						href="#projet"
-						class="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 px-5 py-3.5 text-sm font-semibold text-primary transition hover:bg-primary/10"
-					>
-						Découvrir le projet &amp; les travaux <ArrowDown class="size-4" />
-					</a>
-				</div>
+				<a
+					href={donationUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="mt-8 inline-flex w-fit items-center justify-center gap-2 rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+				>
+					Je donne (Fondation du patrimoine)
+					<ExternalLink class="size-4" />
+				</a>
 			</div>
 			<div class="relative aspect-[1.4] overflow-hidden rounded-2xl border border-primary/10 shadow-sm">
 				<img
-					src="/saint-savin-abbey.png"
+					src="/images/abbaye_saint-savin.jpg"
 					alt="Abbatiale de Saint-Savin dans son village"
 					class="size-full object-cover"
 				/>

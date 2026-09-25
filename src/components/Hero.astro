@@ -1,5 +1,7 @@
 ---
-import { ArrowRight } from 'lucide-astro';
+import { ExternalLink } from 'lucide-astro';
+
+const donationUrl = 'https://www.fondation-patrimoine.org/les-projets/abbatiale-de-saint-savin-dans-les-hautes-pyrenees/76006';
 ---
 
 <section class="mx-auto max-w-7xl px-4 pb-12 pt-8 lg:px-8 lg:pb-16 lg:pt-12">
@@ -14,13 +16,23 @@ import { ArrowRight } from 'lucide-astro';
 			<p class="mt-6 max-w-lg text-base leading-7 text-primary/75">
 				Un joyau de notre village à préserver ensemble. Découvrez le projet de restauration et participez à la campagne de financement.
 			</p>
-			<a
-				href="/patrimoine/renovation-abbatiale"
-				class="mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-			>
-				Découvrir le projet et faire un don
-				<ArrowRight class="size-4" />
-			</a>
+			<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+				<a
+					href="/patrimoine/renovation-abbatiale"
+					class="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+				>
+					Découvrir le projet
+				</a>
+				<a
+					href={donationUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 px-5 py-3.5 text-sm font-semibold text-primary transition hover:bg-primary/10"
+				>
+					Je donne
+					<ExternalLink class="size-4" />
+				</a>
+			</div>
 		</div>
 		<div class="relative min-h-72 overflow-hidden md:min-h-full">
 			<img
@@ -32,3 +44,4 @@ import { ArrowRight } from 'lucide-astro';
 		</div>
 	</div>
 </section>
+
