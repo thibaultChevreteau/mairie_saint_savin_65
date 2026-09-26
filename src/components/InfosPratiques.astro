@@ -2,10 +2,10 @@
 import { ArrowRight, Bell, ChevronRight, Clock3, Trash2, Volume2 } from 'lucide-astro';
 
 const items = [
-	{ label: 'Horaires Mairie', icon: Clock3, href: '#contact' },
-	{ label: 'Rester informé', icon: Bell, href: '#contact', badge: true },
-	{ label: 'Ramassage des ordures', icon: Trash2, href: '#contact' },
-	{ label: 'Nuisances sonores', icon: Volume2, href: '#contact' },
+	{ label: 'Horaires Mairie', icon: Clock3, href: '/infos-pratiques#horaires' },
+	{ label: 'Rester informé', icon: Bell, href: '/infos-pratiques#panneaupocket', badge: true },
+	{ label: 'Ramassage des ordures', icon: Trash2, href: '/infos-pratiques#ordures' },
+	{ label: 'Nuisances sonores', icon: Volume2, href: '/infos-pratiques#nuisances' },
 ];
 ---
 
@@ -16,7 +16,7 @@ const items = [
 				<span class="h-px w-8 bg-secondary"></span>
 				<h2 id="infos-pratiques" class="font-serif text-2xl text-primary">Infos pratiques</h2>
 			</div>
-			<a href="#infos-pratiques" class="hidden items-center gap-2 text-sm font-semibold text-primary sm:flex">
+			<a href="/infos-pratiques" class="hidden items-center gap-2 text-sm font-semibold text-primary sm:flex hover:underline">
 				Toutes les infos pratiques <ArrowRight class="size-4" />
 			</a>
 		</div>

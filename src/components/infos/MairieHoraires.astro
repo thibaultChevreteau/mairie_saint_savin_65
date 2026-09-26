@@ -1,0 +1,54 @@
+---
+import { Mail, Phone } from 'lucide-astro';
+
+const horairesList = [
+	{ day: 'Lundi', hours: '14h00 – 19h00' },
+	{ day: 'Mercredi', hours: '14h00 – 17h30' },
+	{ day: 'Jeudi', hours: '14h00 – 18h00' },
+];
+---
+
+<section id="horaires" class="scroll-mt-6 mx-auto max-w-7xl px-4 py-14 lg:px-8 lg:py-20">
+	<div class="mb-8">
+		<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">Mairie &amp; accueil</p>
+		<h2 class="font-serif text-3xl text-primary sm:text-4xl">Horaires &amp; Contact Mairie</h2>
+	</div>
+	<div class="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+		<div class="rounded-xl border border-border bg-card p-6 sm:p-8">
+			<h3 class="font-serif text-2xl text-primary">Horaires d’ouverture</h3>
+			<div class="mt-6 divide-y divide-border">
+				{
+					horairesList.map(({ day, hours }) => (
+						<div class="flex justify-between gap-4 py-4 text-sm">
+							<span class="font-semibold text-primary">{day}</span>
+							<span class="text-muted-foreground">{hours}</span>
+						</div>
+					))
+				}
+			</div>
+			<div class="mt-6 rounded-lg bg-secondary/15 p-4">
+				<p class="text-xs font-bold uppercase tracking-wide text-secondary">Permanence du maire et des adjoints</p>
+				<p class="mt-2 text-sm font-semibold text-primary">Lundi de 17h30 à 19h30</p>
+			</div>
+		</div>
+		<div class="flex flex-col gap-5">
+			<div class="rounded-xl border border-border bg-card p-6">
+				<h3 class="font-serif text-2xl text-primary">Nous contacter</h3>
+				<div class="mt-5 space-y-4 text-sm text-muted-foreground">
+					<p class="flex items-center gap-3">
+						<Phone class="size-4 text-secondary" /> 05 62 92 70 52
+					</p>
+					<p class="flex items-center gap-3">
+						<Mail class="size-4 text-secondary" /> saintsavin65@orange.fr
+					</p>
+				</div>
+			</div>
+			<div class="rounded-xl bg-accent p-6">
+				<h3 class="font-serif text-2xl text-primary">Nouveaux Arrivants</h3>
+				<p class="mt-3 text-sm leading-6 text-primary/75">
+					Les familles récemment installées sur la commune sont invitées à se présenter en Mairie pour mettre à jour leur situation (inscription sur les listes électorales, inscription scolaire des enfants...).
+				</p>
+			</div>
+		</div>
+	</div>
+</section>

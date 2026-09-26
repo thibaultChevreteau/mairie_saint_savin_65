@@ -1,0 +1,42 @@
+---
+import { ExternalLink, Recycle, Trash2 } from 'lucide-astro';
+---
+
+<section id="ordures" class="scroll-mt-6 mx-auto max-w-7xl px-4 py-14 lg:px-8 lg:py-20">
+	<div class="mb-8">
+		<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">Cadre de vie</p>
+		<h2 class="font-serif text-3xl text-primary sm:text-4xl">Ramassage &amp; Gestion des Déchets</h2>
+	</div>
+	<div class="grid gap-5 md:grid-cols-2">
+		<div class="rounded-xl border border-border bg-card p-6">
+			<div class="flex items-start justify-between gap-4">
+				<div>
+					<Recycle class="size-6 text-secondary" />
+					<h3 class="mt-5 font-serif text-2xl text-primary">Tri sélectif</h3>
+					<p class="mt-2 text-sm text-muted-foreground">Sacs jaunes</p>
+				</div>
+				<span class="rounded-full bg-secondary px-3 py-1.5 text-xs font-bold text-secondary-foreground">
+					Vendredi matin
+				</span>
+			</div>
+		</div>
+		<div class="rounded-xl border border-border bg-card p-6">
+			<Trash2 class="size-6 text-secondary" />
+			<h3 class="mt-5 font-serif text-2xl text-primary">Ordures ménagères</h3>
+			<p class="mt-2 text-sm text-muted-foreground">Mercredi matin</p>
+		</div>
+	</div>
+	<div class="mt-5 flex flex-col gap-4 rounded-xl bg-accent p-6 sm:flex-row sm:items-center sm:justify-between">
+		<p class="max-w-2xl text-sm leading-6 text-primary/75">
+			Pour la déchèterie, les encombrants et les consignes spécifiques :
+		</p>
+		<a
+			href="https://www.valleesdegaves.com/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
+		>
+			Consulter le site du Service Déchets (CCPVG) <ExternalLink class="size-4" />
+		</a>
+	</div>
+</section>
