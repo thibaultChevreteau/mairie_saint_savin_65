@@ -1,9 +1,9 @@
 ---
-import { Clock3, Menu, Phone, Search } from 'lucide-astro'
+import { Clock3, Menu, Phone, X } from 'lucide-astro'
 
 const navItems = [
 	{ label: 'Accueil', href: '/' },
-	{ label: 'Actualités', href: '/#actualites' },
+	{ label: 'Actualités', href: '/actualites' },
 	{ label: 'Démarches & Infos', href: '/infos-pratiques' },
 	{ label: 'Patrimoine', href: '/patrimoine/renovation-abbatiale' },
 ];
@@ -41,14 +41,51 @@ const navItems = [
 				))
 			}
 		</nav>
-		<div class="flex items-center gap-2">
+		<div class="flex items-center gap-2 lg:hidden">
 			<button
-				class="flex size-10 items-center justify-center rounded-full border border-border text-primary lg:hidden"
+				id="mobile-menu-button"
+				class="flex size-10 items-center justify-center rounded-full border border-border text-primary"
 				aria-label="Ouvrir le menu"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
 			>
-				<Menu class="size-5" />
+				<Menu class="size-5 menu-icon" />
+				<X class="size-5 close-icon hidden" />
 			</button>
 		</div>
 	</div>
-	{/* Menu mobile : rendu fermé, sans interactivité — l'island viendra dans une étape dédiée. */}
+	<nav
+		id="mobile-menu"
+		class="hidden flex-col gap-4 border-t border-border px-4 py-5 lg:hidden"
+		aria-label="Navigation mobile"
+	>
+		{
+			navItems.map((item) => (
+				<a
+					href={item.href}
+					class="font-medium text-primary transition-colors hover:underline"
+				>
+					{item.label}
+				</a>
+			))
+		}
+	</nav>
 </header>
+
+<script>
+	const menuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+	const menuIcon = menuButton?.querySelector('.menu-icon');
+	const closeIcon = menuButton?.querySelector('.close-icon');
+
+	menuButton?.addEventListener('click', () => {
+		const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+		menuButton.setAttribute('aria-expanded', String(!isExpanded));
+		menuButton.setAttribute('aria-label', isExpanded ? 'Ouvrir le menu' : 'Fermer le menu');
+
+		mobileMenu?.classList.toggle('hidden');
+		mobileMenu?.classList.toggle('flex');
+		menuIcon?.classList.toggle('hidden');
+		closeIcon?.classList.toggle('hidden');
+	});
+</script>
