@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { ArrowRight } from 'lucide-astro';
 import NewsCard from './NewsCard.astro';
+import { getNewsExcerpt } from '../utils/news';
 
 const allNews = await getCollection('news');
 const news = allNews
@@ -15,21 +16,27 @@ const news = allNews
 			<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">La vie du village</p>
 			<h2 id="actualites-title" class="font-serif text-3xl text-primary sm:text-4xl">Actualités de la commune</h2>
 		</div>
-		<a href="#actualités" class="hidden items-center gap-2 text-sm font-semibold text-primary sm:flex">
+		<a href="/actualites" class="hidden items-center gap-2 text-sm font-semibold text-primary hover:underline sm:flex">
 			Toutes les actualités <ArrowRight class="size-4" />
 		</a>
 	</div>
-	<div class="grid gap-5 sm:grid-cols-2">
+	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 		{
 			news.map((item) => (
 				<NewsCard
+					slug={item.id}
 					date={item.data.date}
 					category={item.data.category}
 					title={item.data.title}
-					text={item.data.text}
+					text={getNewsExcerpt(item.data.text || item.body || '')}
 					image={item.data.image}
 				/>
 			))
 		}
+	</div>
+	<div class="mt-8 flex justify-center sm:hidden">
+		<a href="/actualites" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+			Toutes les actualités <ArrowRight class="size-4" />
+		</a>
 	</div>
 </section>
