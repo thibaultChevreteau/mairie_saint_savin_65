@@ -1,0 +1,220 @@
+---
+import { ChevronLeft, ChevronRight, Download, FileText } from 'lucide-astro';
+
+export interface DocumentItem {
+	id: string;
+	title: string;
+	category: 'Délibérations' | 'Bulletins Municipaux';
+	date: string;
+	year: number;
+	size: string;
+}
+
+const categories = ['Tous les documents', 'Délibérations', 'Bulletins Municipaux'];
+
+const allDocuments: DocumentItem[] = [
+	{ id: '1', title: 'Compte-rendu du Conseil Municipal - Juillet 2026', category: 'Délibérations', date: '15 Juillet 2026', year: 2026, size: '842 Ko' },
+	{ id: '2', title: 'Bulletin Municipal n°42 - Été 2026', category: 'Bulletins Municipaux', date: '28 Juillet 2026', year: 2026, size: '3,2 Mo' },
+	{ id: '3', title: 'Procès-verbal du Conseil Municipal - Juin 2026', category: 'Délibérations', date: '04 Juillet 2026', year: 2026, size: '918 Ko' },
+	{ id: '4', title: 'Compte-rendu du Conseil Municipal - Juin 2026', category: 'Délibérations', date: '10 Juin 2026', year: 2026, size: '765 Ko' },
+	{ id: '5', title: 'Bulletin Municipal n°41 - Printemps 2026', category: 'Bulletins Municipaux', date: '29 Mai 2026', year: 2026, size: '2,8 Mo' },
+	{ id: '6', title: 'Procès-verbal du Conseil Municipal - Mai 2026', category: 'Délibérations', date: '02 Juin 2026', year: 2026, size: '704 Ko' },
+	{ id: '7', title: 'Compte-rendu du Conseil Municipal - Avril 2026', category: 'Délibérations', date: '20 Avril 2026', year: 2026, size: '891 Ko' },
+	{ id: '8', title: 'Bulletin Municipal n°40 - Hiver 2025', category: 'Bulletins Municipaux', date: '15 Janvier 2026', year: 2026, size: '3,1 Mo' },
+	{ id: '9', title: 'Procès-verbal du Conseil Municipal - Mars 2026', category: 'Délibérations', date: '01 Avril 2026', year: 2026, size: '823 Ko' },
+	{ id: '10', title: 'Compte-rendu du Conseil Municipal - Février 2026', category: 'Délibérations', date: '18 Février 2026', year: 2026, size: '780 Ko' },
+	{ id: '11', title: 'Bulletin Municipal n°39 - Automne 2025', category: 'Bulletins Municipaux', date: '10 Novembre 2025', year: 2025, size: '2,9 Mo' },
+	{ id: '12', title: 'Procès-verbal du Conseil Municipal - Décembre 2025', category: 'Délibérations', date: '18 Décembre 2025', year: 2025, size: '850 Ko' },
+];
+---
+
+<div>
+	<!-- Filter Bar -->
+	<section class="border-y border-border bg-card px-4 py-6 lg:px-8" aria-label="Filtres">
+		<div class="mx-auto max-w-7xl overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+			<div class="flex min-w-max items-center gap-2" role="group" aria-label="Filtrer les documents par catégorie">
+				{
+					categories.map((category, index) => (
+						<button
+							type="button"
+							data-filter-btn
+							data-category={category}
+							aria-pressed={index === 0 ? 'true' : 'false'}
+							class={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+								index === 0
+									? 'border-primary bg-primary text-primary-foreground'
+									: 'border-border bg-background text-primary hover:border-primary hover:bg-secondary/50'
+							}`}
+						>
+							{category}
+						</button>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Documents List -->
+	<section class="mx-auto max-w-7xl px-4 py-10 lg:px-8" aria-labelledby="documents-list-title">
+		<h2 id="documents-list-title" class="sr-only">Liste des documents</h2>
+		<div id="documents-container" class="divide-y divide-border overflow-hidden rounded-xl border border-border">
+			{
+				allDocuments.map((doc) => (
+					<div
+						data-doc-item
+						data-doc-category={doc.category}
+						class="flex flex-col gap-3 p-4 transition hover:bg-secondary/50 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+					>
+						<div class="flex items-start gap-4">
+							<span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary/20 text-secondary">
+								<FileText class="size-5" />
+							</span>
+							<div class="min-w-0 flex-1">
+								<h3 class="break-words text-sm font-semibold leading-tight text-primary">{doc.title}</h3>
+								<p class="mt-1.5 text-xs text-muted-foreground">
+									Publié le {doc.date} &middot; {doc.size}
+								</p>
+							</div>
+						</div>
+						<a
+							href="#"
+							class="mt-3 inline-flex items-center gap-2 whitespace-nowrap text-xs font-bold uppercase tracking-wide text-primary transition hover:text-primary/75 sm:mt-0"
+						>
+							Consulter <Download class="size-4" />
+						</a>
+					</div>
+				))
+			}
+		</div>
+
+		<div id="no-documents-msg" class="hidden rounded-xl border border-border bg-card p-8 text-center">
+			<p class="text-muted-foreground">Aucun document trouvé dans cette catégorie.</p>
+		</div>
+	</section>
+
+	<!-- Pagination -->
+	<section id="pagination-section" class="mx-auto max-w-7xl px-4 py-4 lg:px-8" aria-label="Pagination">
+		<div class="flex items-center justify-center gap-3">
+			<button
+				type="button"
+				id="prev-page-btn"
+				class="flex size-9 items-center justify-center rounded-lg border border-border text-primary transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
+				aria-label="Page précédente"
+			>
+				<ChevronLeft class="size-4" />
+			</button>
+			<span id="page-indicator" class="text-sm font-medium text-foreground">
+				Page 1 sur 1
+			</span>
+			<button
+				type="button"
+				id="next-page-btn"
+				class="flex size-9 items-center justify-center rounded-lg border border-border text-primary transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
+				aria-label="Page suivante"
+			>
+				<ChevronRight class="size-4" />
+			</button>
+		</div>
+	</section>
+</div>
+
+<script>
+	const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter-btn]');
+	const docItems = document.querySelectorAll<HTMLElement>('[data-doc-item]');
+	const container = document.getElementById('documents-container');
+	const noDocsMsg = document.getElementById('no-documents-msg');
+	const paginationSection = document.getElementById('pagination-section');
+	const prevBtn = document.getElementById('prev-page-btn') as HTMLButtonElement | null;
+	const nextBtn = document.getElementById('next-page-btn') as HTMLButtonElement | null;
+	const pageIndicator = document.getElementById('page-indicator');
+
+	const ITEMS_PER_PAGE = 8;
+	let selectedCategory = 'Tous les documents';
+	let currentPage = 1;
+
+	function updateDisplay() {
+		const matchingItems: HTMLElement[] = [];
+		docItems.forEach((item) => {
+			const itemCategory = item.getAttribute('data-doc-category');
+			if (selectedCategory === 'Tous les documents' || itemCategory === selectedCategory) {
+				matchingItems.push(item);
+			}
+		});
+
+		const totalPages = Math.ceil(matchingItems.length / ITEMS_PER_PAGE) || 1;
+		if (currentPage > totalPages) currentPage = totalPages;
+		if (currentPage < 1) currentPage = 1;
+
+		const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+		const endIndex = startIndex + ITEMS_PER_PAGE;
+
+		docItems.forEach((item) => {
+			item.style.display = 'none';
+		});
+
+		matchingItems.forEach((item, index) => {
+			if (index >= startIndex && index < endIndex) {
+				item.style.display = 'flex';
+			}
+		});
+
+		if (matchingItems.length === 0) {
+			container?.classList.add('hidden');
+			noDocsMsg?.classList.remove('hidden');
+			paginationSection?.classList.add('hidden');
+		} else {
+			container?.classList.remove('hidden');
+			noDocsMsg?.classList.add('hidden');
+			if (totalPages > 1) {
+				paginationSection?.classList.remove('hidden');
+			} else {
+				paginationSection?.classList.add('hidden');
+			}
+		}
+
+		if (pageIndicator) {
+			pageIndicator.textContent = `Page ${currentPage} sur ${totalPages}`;
+		}
+
+		if (prevBtn) prevBtn.disabled = currentPage === 1;
+		if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+	}
+
+	filterButtons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const cat = btn.getAttribute('data-category');
+			if (!cat) return;
+
+			selectedCategory = cat;
+			currentPage = 1;
+
+			filterButtons.forEach((b) => {
+				const isCurrent = b === btn;
+				b.setAttribute('aria-pressed', String(isCurrent));
+				if (isCurrent) {
+					b.className =
+						'whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border-primary bg-primary text-primary-foreground';
+				} else {
+					b.className =
+						'whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border-border bg-background text-primary hover:border-primary hover:bg-secondary/50';
+				}
+			});
+
+			updateDisplay();
+		});
+	});
+
+	prevBtn?.addEventListener('click', () => {
+		if (currentPage > 1) {
+			currentPage--;
+			updateDisplay();
+		}
+	});
+
+	nextBtn?.addEventListener('click', () => {
+		currentPage++;
+		updateDisplay();
+	});
+
+	updateDisplay();
+</script>
