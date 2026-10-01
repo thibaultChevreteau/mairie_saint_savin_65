@@ -5,6 +5,7 @@ import ActualitesHero from '../../components/actualites/ActualitesHero.astro';
 import PanneauPocketBanner from '../../components/actualites/PanneauPocketBanner.astro';
 import { getCollection } from 'astro:content';
 import { getNewsExcerpt } from '../../utils/news';
+import { Info, ExternalLink } from 'lucide-astro';
 
 const allNews = await getCollection('news');
 const articles = allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -14,20 +15,40 @@ const articles = allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getT
 	<main>
 		<ActualitesHero />
 		<section class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
-			<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-				{
-					articles.map((article) => (
-						<NewsCard
-							slug={article.id}
-							date={article.data.date}
-							category={article.data.category}
-							title={article.data.title}
-							text={getNewsExcerpt(article.data.text || article.body || '')}
-							image={article.data.image}
-						/>
-					))
-				}
-			</div>
+			{
+				articles.length > 0 ? (
+					<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+						{articles.map((article) => (
+							<NewsCard
+								slug={article.id}
+								date={article.data.date}
+								category={article.data.category}
+								title={article.data.title}
+								text={getNewsExcerpt(article.body || article.data.text || '')}
+								image={article.data.imageUrl || article.data.image}
+							/>
+						))}
+					</div>
+				) : (
+					<div class="mb-12 rounded-2xl border border-border bg-card p-8 text-center sm:p-12">
+						<div class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+							<Info class="size-6" />
+						</div>
+						<h2 class="font-serif text-2xl text-primary font-medium mb-2">Aucune actualité publiée pour le moment</h2>
+						<p class="text-sm text-muted-foreground max-w-md mx-auto mb-6">
+							Les dernières informations et alertes de la Mairie de Saint-Savin sont diffusées en direct sur l'application PanneauPocket.
+						</p>
+						<a
+							href="https://app.panneaupocket.com/ville/4275507-saint-savin-65400"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+						>
+							Voir la page PanneauPocket <ExternalLink class="size-4" />
+						</a>
+					</div>
+				)
+			}
 			<PanneauPocketBanner />
 		</section>
 	</main>

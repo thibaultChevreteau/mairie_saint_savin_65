@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
-import { ArrowLeft } from 'lucide-astro';
+import { ArrowLeft, ExternalLink, FileText } from 'lucide-astro';
 
 export async function getStaticPaths() {
 	const allNews = await getCollection('news');
@@ -19,6 +19,8 @@ const formattedDate = item.data.date.toLocaleDateString('fr-FR', {
 	month: 'long',
 	year: 'numeric',
 });
+
+const imageUrl = item.data.imageUrl || item.data.image;
 ---
 
 <Layout title={`${item.data.title} - Mairie de Saint-Savin`}>
@@ -48,25 +50,60 @@ const formattedDate = item.data.date.toLocaleDateString('fr-FR', {
 				</time>
 			</div>
 
-			<h1 class="mt-5 max-w-3xl font-serif text-4xl leading-tight text-primary sm:text-5xl">
+			<h1 class="mt-5 max-w-3xl font-serif text-3xl leading-tight text-primary sm:text-4xl lg:text-5xl">
 				{item.data.title}
 			</h1>
 
-			<div class="mt-8 aspect-[2/1] overflow-hidden rounded-2xl border border-border">
-				<img src={item.data.image} alt={item.data.title} class="size-full object-cover" />
-			</div>
+			{
+				imageUrl ? (
+					<div class="mt-8 overflow-hidden rounded-2xl border border-border bg-muted">
+						<img src={imageUrl} alt={item.data.title} class="w-full max-h-[500px] object-contain mx-auto" />
+					</div>
+				) : null
+			}
 
 			<div class="prose prose-stone mt-10 max-w-2xl text-base leading-8 text-foreground/80 space-y-4">
 				<Content />
 			</div>
 
-			<a
-				href="/infos-pratiques"
-				class="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
-			>
-				Retrouvez aussi cette information sur l'application PanneauPocket
-				<ArrowLeft class="size-4 rotate-180" />
-			</a>
+			{
+				item.data.documentUrl ? (
+					<div class="mt-8">
+						<a
+							href={item.data.documentUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+						>
+							<FileText class="size-4" /> Voir le document joint
+						</a>
+					</div>
+				) : null
+			}
+
+			<div class="mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
+				{
+					item.data.link ? (
+						<a
+							href={item.data.link}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+						>
+							Voir cette information sur PanneauPocket
+							<ExternalLink class="size-4" />
+						</a>
+					) : (
+						<a
+							href="/infos-pratiques#panneau-pocket"
+							class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+						>
+							Retrouvez aussi cette information sur l'application PanneauPocket
+							<ArrowLeft class="size-4 rotate-180" />
+						</a>
+					)
+				}
+			</div>
 		</article>
 	</main>
 </Layout>

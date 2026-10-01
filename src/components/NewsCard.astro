@@ -7,7 +7,7 @@ interface Props {
 	category: string;
 	title: string;
 	text: string;
-	image: string;
+	image?: string;
 }
 
 const { slug, date, category, title, text, image } = Astro.props;
@@ -16,13 +16,17 @@ const formattedDate = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 
 ---
 
 <article class="group overflow-hidden rounded-xl border border-border bg-card flex flex-col h-full">
-	<a href={`/actualites/${slug}`} class="block aspect-[1.8] overflow-hidden">
-		<img
-			src={image}
-			alt={title}
-			class="size-full object-cover grayscale-[20%] transition duration-500 group-hover:scale-105"
-		/>
-	</a>
+	{
+		image ? (
+			<a href={`/actualites/${slug}`} class="block aspect-[1.8] overflow-hidden bg-muted">
+				<img
+					src={image}
+					alt={title}
+					class="size-full object-cover grayscale-[20%] transition duration-500 group-hover:scale-105"
+				/>
+			</a>
+		) : null
+	}
 	<div class="p-5 flex flex-col flex-1">
 		<div class="flex items-center justify-between gap-3">
 			<time datetime={date.toISOString()} class="text-xs text-muted-foreground">{formattedDate}</time>

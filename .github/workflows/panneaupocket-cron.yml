@@ -1,0 +1,20 @@
+name: Trigger Netlify Build for PanneauPocket Sync
+
+on:
+  schedule:
+    # Runs at 07:00 and 12:00 UTC every day
+    - cron: '0 7,12 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-netlify-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify Build Hook
+        run: |
+          if [ -z "${{ secrets.NETLIFY_BUILD_HOOK }}" ]; then
+            echo "Error: NETLIFY_BUILD_HOOK secret is not configured in GitHub Secrets!"
+            exit 1
+          fi
+          echo "Triggering Netlify Build..."
+          curl -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK }}"

@@ -7,14 +7,16 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/fetch-panneaupocket.js && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "cms": "npx decap-server"
+    "cms": "npx decap-server",
+    "fetch:panneaupocket": "node scripts/fetch-panneaupocket.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.10",
+    "astro": "^7.3.5",
+    "cheerio": "^1.2.0",
     "lucide-astro": "^0.556.0",
     "tailwindcss": "^4.3.3"
   },

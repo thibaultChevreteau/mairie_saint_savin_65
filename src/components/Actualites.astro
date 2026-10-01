@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { ArrowRight } from 'lucide-astro';
+import { ArrowRight, Info, ExternalLink } from 'lucide-astro';
 import NewsCard from './NewsCard.astro';
 import { getNewsExcerpt } from '../utils/news';
 
@@ -16,27 +16,54 @@ const news = allNews
 			<p class="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary">La vie du village</p>
 			<h2 id="actualites-title" class="font-serif text-3xl text-primary sm:text-4xl">Actualités de la commune</h2>
 		</div>
-		<a href="/actualites" class="hidden items-center gap-2 text-sm font-semibold text-primary hover:underline sm:flex">
-			Toutes les actualités <ArrowRight class="size-4" />
-		</a>
-	</div>
-	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 		{
-			news.map((item) => (
-				<NewsCard
-					slug={item.id}
-					date={item.data.date}
-					category={item.data.category}
-					title={item.data.title}
-					text={getNewsExcerpt(item.data.text || item.body || '')}
-					image={item.data.image}
-				/>
-			))
+			news.length > 0 ? (
+				<a href="/actualites" class="hidden items-center gap-2 text-sm font-semibold text-primary hover:underline sm:flex">
+					Toutes les actualités <ArrowRight class="size-4" />
+				</a>
+			) : null
 		}
 	</div>
-	<div class="mt-8 flex justify-center sm:hidden">
-		<a href="/actualites" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
-			Toutes les actualités <ArrowRight class="size-4" />
-		</a>
-	</div>
+
+	{
+		news.length > 0 ? (
+			<>
+				<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+					{news.map((item) => (
+						<NewsCard
+							slug={item.id}
+							date={item.data.date}
+							category={item.data.category}
+							title={item.data.title}
+							text={getNewsExcerpt(item.body || item.data.text || '')}
+							image={item.data.imageUrl || item.data.image}
+						/>
+					))}
+				</div>
+				<div class="mt-8 flex justify-center sm:hidden">
+					<a href="/actualites" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+						Toutes les actualités <ArrowRight class="size-4" />
+					</a>
+				</div>
+			</>
+		) : (
+			<div class="rounded-2xl border border-border bg-card p-8 text-center sm:p-12">
+				<div class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+					<Info class="size-6" />
+				</div>
+				<h3 class="font-serif text-xl text-primary font-medium mb-2">Aucune actualité récente pour le moment</h3>
+				<p class="text-sm text-muted-foreground max-w-md mx-auto mb-6">
+					Consultez directement les informations de Saint-Savin en temps réel sur l'application PanneauPocket.
+				</p>
+				<a
+					href="https://app.panneaupocket.com/ville/4275507-saint-savin-65400"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+				>
+					Consulter sur PanneauPocket <ExternalLink class="size-4" />
+				</a>
+			</div>
+		)
+	}
 </section>

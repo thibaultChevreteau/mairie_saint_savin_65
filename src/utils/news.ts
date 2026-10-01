@@ -9,9 +9,12 @@ export function getNewsExcerpt(rawText: string): string {
 
 	// Clean up basic markdown markers (headers, bold, italic, code, etc.)
 	const cleanText = rawText
+		.replace(/<[^>]*>/g, ' ')
+		.replace(/&nbsp;/g, ' ')
 		.replace(/^#+\s+/gm, '')
 		.replace(/[*_`]/g, '')
 		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+		.replace(/\s+/g, ' ')
 		.trim();
 
 	const periodIndex = cleanText.indexOf('.');
