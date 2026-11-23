@@ -136,6 +136,24 @@ async function fetchPanneauPocket() {
     console.log(`[PanneauPocket] Généré: src/content/news/${pub.id}.md`);
   }
 
+  // Delete obsolete PanneauPocket Markdown files
+  const activeIds = new Set(publications.map((pub) => `${pub.id}.md`));
+  const existingFiles = fs.readdirSync(CONTENT_NEWS_DIR);
+
+  for (const file of existingFiles) {
+    const filePath = path.join(CONTENT_NEWS_DIR, file);
+    if (!fs.statSync(filePath).isFile()) continue;
+    if (!file.endsWith('.md')) continue;
+
+    if (!activeIds.has(file)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      if (/category:\s*["']PanneauPocket["']/.test(content)) {
+        fs.unlinkSync(filePath);
+        console.log(`[PanneauPocket] Supprimé (obsolète): src/content/news/${file}`);
+      }
+    }
+  }
+
   // Save JSON summary in src/data/panneaupocket.json
   const jsonDir = path.dirname(JSON_OUTPUT_PATH);
   if (!fs.existsSync(jsonDir)) {
