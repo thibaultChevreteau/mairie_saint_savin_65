@@ -1,20 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AnchorNav from '../../components/AnchorNav.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import ActualitesHero from '../../components/actualites/ActualitesHero.astro';
 import PanneauPocketBanner from '../../components/actualites/PanneauPocketBanner.astro';
+import EvenementsSection from '../../components/actualites/EvenementsSection.astro';
 import { getCollection } from 'astro:content';
 import { getNewsExcerpt } from '../../utils/news';
 import { Info, ExternalLink } from 'lucide-astro';
 
 const allNews = await getCollection('news');
 const articles = allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const navLinks = [
+	{ id: 'actualites', label: 'Actualités' },
+	{ id: 'evenements', label: 'Événements' },
+];
 ---
 
 <Layout title="Actualités & Vie Municipale - Mairie de Saint-Savin">
 	<main>
 		<ActualitesHero />
-		<section class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
+		<AnchorNav links={navLinks} />
+		<section id="actualites" class="scroll-mt-16 mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
 			{
 				articles.length > 0 ? (
 					<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -51,5 +59,6 @@ const articles = allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getT
 			}
 			<PanneauPocketBanner />
 		</section>
+		<EvenementsSection />
 	</main>
 </Layout>
