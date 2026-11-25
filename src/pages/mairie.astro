@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnchorNav from '../components/AnchorNav.astro';
 import DocumentsFilterList from '../components/documents/DocumentsFilterList.astro';
 import LegalNote from '../components/documents/LegalNote.astro';
 import {
@@ -67,9 +68,9 @@ const organizations = [
 ];
 
 const navLinks = [
-	{ href: '#equipe', label: 'L’Équipe municipale' },
-	{ href: '#publications', label: 'Documents & Délibérations' },
-	{ href: '#intercommunalite', label: 'Intercommunalité & Instances' },
+	{ id: 'equipe', label: 'L’Équipe municipale' },
+	{ id: 'publications', label: 'Documents & Délibérations' },
+	{ id: 'intercommunalite', label: 'Intercommunalité & Instances' },
 ];
 ---
 
@@ -105,27 +106,7 @@ const navLinks = [
 			</div>
 		</section>
 
-		<nav
-			id="mairie-subnav"
-			class="sticky top-0 z-20 border-y border-border bg-background/95 px-4 shadow-sm backdrop-blur"
-			aria-label="Navigation rapide"
-		>
-			<div class="mx-auto flex max-w-7xl gap-6 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-				{
-					navLinks.map((link, index) => (
-						<a
-							href={link.href}
-							data-subnav-link
-							class={`whitespace-nowrap border-b-2 pb-0.5 text-sm font-semibold transition-colors hover:text-secondary ${
-								index === 0 ? 'border-secondary text-secondary' : 'border-transparent text-primary'
-							}`}
-						>
-							{link.label}
-						</a>
-					))
-				}
-			</div>
-		</nav>
+		<AnchorNav links={navLinks} />
 
 		<section id="equipe" class="scroll-mt-16 bg-white/60 px-4 py-16 lg:px-8 lg:py-20">
 			<div class="mx-auto max-w-7xl">
@@ -348,41 +329,3 @@ const navLinks = [
 		</section>
 	</main>
 </Layout>
-
-<script>
-	const subnavLinks = document.querySelectorAll<HTMLAnchorElement>('[data-subnav-link]');
-	const sections = ['equipe', 'publications', 'intercommunalite']
-		.map((id) => document.getElementById(id))
-		.filter((el): el is HTMLElement => el !== null);
-
-	function setActiveLink(activeId: string) {
-		subnavLinks.forEach((link) => {
-			const isMatch = link.getAttribute('href') === `#${activeId}`;
-			if (isMatch) {
-				link.classList.remove('border-transparent', 'text-primary');
-				link.classList.add('border-secondary', 'text-secondary');
-			} else {
-				link.classList.remove('border-secondary', 'text-secondary');
-				link.classList.add('border-transparent', 'text-primary');
-			}
-		});
-	}
-
-	if (sections.length > 0) {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						setActiveLink(entry.target.id);
-					}
-				}
-			},
-			{
-				rootMargin: '-25% 0px -65% 0px',
-				threshold: 0,
-			}
-		);
-
-		sections.forEach((section) => observer.observe(section));
-	}
-</script>

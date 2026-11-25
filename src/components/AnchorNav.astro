@@ -1,0 +1,88 @@
+---
+export interface AnchorLink {
+	id: string;
+	label: string;
+}
+
+interface Props {
+	links: AnchorLink[];
+	ariaLabel?: string;
+}
+
+const { links, ariaLabel = 'Navigation rapide' } = Astro.props;
+---
+
+<nav
+	data-anchor-nav
+	class="sticky top-0 z-20 border-y border-border bg-background/95 px-4 shadow-sm backdrop-blur"
+	aria-label={ariaLabel}
+>
+	<div class="mx-auto flex max-w-7xl gap-6 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+		{
+			links.map((link, index) => (
+				<a
+					href={`#${link.id}`}
+					data-anchor-nav-link
+					data-target-id={link.id}
+					class={`whitespace-nowrap border-b-2 pb-0.5 text-sm font-semibold transition-colors hover:text-secondary ${
+						index === 0 ? 'border-secondary text-secondary' : 'border-transparent text-primary'
+					}`}
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</div>
+</nav>
+
+<script>
+	const navs = document.querySelectorAll<HTMLElement>('[data-anchor-nav]');
+
+	navs.forEach((nav) => {
+		const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-anchor-nav-link]'));
+		const targetIds = links
+			.map((link) => link.getAttribute('data-target-id'))
+			.filter((id): id is string => Boolean(id));
+		const sections = targetIds
+			.map((id) => document.getElementById(id))
+			.filter((el): el is HTMLElement => el !== null);
+
+		function setActiveLink(activeId: string) {
+			links.forEach((link) => {
+				const isMatch = link.getAttribute('data-target-id') === activeId;
+				if (isMatch) {
+					link.classList.remove('border-transparent', 'text-primary');
+					link.classList.add('border-secondary', 'text-secondary');
+				} else {
+					link.classList.remove('border-secondary', 'text-secondary');
+					link.classList.add('border-transparent', 'text-primary');
+				}
+			});
+		}
+
+		links.forEach((link) => {
+			link.addEventListener('click', () => {
+				const id = link.getAttribute('data-target-id');
+				if (id) setActiveLink(id);
+			});
+		});
+
+		if (sections.length > 0) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					for (const entry of entries) {
+						if (entry.isIntersecting) {
+							setActiveLink(entry.target.id);
+						}
+					}
+				},
+				{
+					rootMargin: '-25% 0px -65% 0px',
+					threshold: 0,
+				}
+			);
+
+			sections.forEach((section) => observer.observe(section));
+		}
+	});
+</script>
