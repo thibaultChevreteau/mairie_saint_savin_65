@@ -28,49 +28,47 @@ const allDocuments: DocumentItem[] = [
 ];
 ---
 
-<div>
+<div class="mt-8">
 	<!-- Filter Bar -->
-	<section class="border-y border-border bg-card px-4 py-6 lg:px-8" aria-label="Filtres">
-		<div class="mx-auto max-w-7xl overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-			<div class="flex min-w-max items-center gap-2" role="group" aria-label="Filtrer les documents par catégorie">
-				{
-					categories.map((category, index) => (
-						<button
-							type="button"
-							data-filter-btn
-							data-category={category}
-							aria-pressed={index === 0 ? 'true' : 'false'}
-							class={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-								index === 0
-									? 'border-primary bg-primary text-primary-foreground'
-									: 'border-border bg-background text-primary hover:border-primary hover:bg-secondary/50'
-							}`}
-						>
-							{category}
-						</button>
-					))
-				}
-			</div>
+	<div class="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="region" aria-label="Filtres">
+		<div class="flex min-w-max items-center gap-2" role="group" aria-label="Filtrer les documents par catégorie">
+			{
+				categories.map((category, index) => (
+					<button
+						type="button"
+						data-filter-btn
+						data-category={category}
+						aria-pressed={index === 0 ? 'true' : 'false'}
+						class={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+							index === 0
+								? 'border-primary bg-primary text-primary-foreground'
+								: 'border-border bg-card text-primary hover:border-primary hover:bg-secondary/15'
+						}`}
+					>
+						{category}
+					</button>
+				))
+			}
 		</div>
-	</section>
+	</div>
 
 	<!-- Documents List -->
-	<section class="mx-auto max-w-7xl px-4 py-10 lg:px-8" aria-labelledby="documents-list-title">
-		<h2 id="documents-list-title" class="sr-only">Liste des documents</h2>
-		<div id="documents-container" class="divide-y divide-border overflow-hidden rounded-xl border border-border">
+	<div class="mt-6" aria-labelledby="documents-list-title">
+		<h3 id="documents-list-title" class="sr-only">Liste des documents</h3>
+		<div id="documents-container" class="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card shadow-sm">
 			{
 				allDocuments.map((doc) => (
 					<div
 						data-doc-item
 						data-doc-category={doc.category}
-						class="flex flex-col gap-3 p-4 transition hover:bg-secondary/50 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+						class="flex flex-col gap-3 p-4 transition hover:bg-muted/50 sm:flex-row sm:items-center sm:justify-between sm:p-5"
 					>
 						<div class="flex items-start gap-4">
 							<span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary/20 text-secondary">
 								<FileText class="size-5" />
 							</span>
 							<div class="min-w-0 flex-1">
-								<h3 class="break-words text-sm font-semibold leading-tight text-primary">{doc.title}</h3>
+								<h4 class="break-words text-sm font-semibold leading-tight text-primary">{doc.title}</h4>
 								<p class="mt-1.5 text-xs text-muted-foreground">
 									Publié le {doc.date} &middot; {doc.size}
 								</p>
@@ -90,15 +88,15 @@ const allDocuments: DocumentItem[] = [
 		<div id="no-documents-msg" class="hidden rounded-xl border border-border bg-card p-8 text-center">
 			<p class="text-muted-foreground">Aucun document trouvé dans cette catégorie.</p>
 		</div>
-	</section>
+	</div>
 
 	<!-- Pagination -->
-	<section id="pagination-section" class="mx-auto max-w-7xl px-4 py-4 lg:px-8" aria-label="Pagination">
+	<div id="pagination-section" class="mt-6" aria-label="Pagination">
 		<div class="flex items-center justify-center gap-3">
 			<button
 				type="button"
 				id="prev-page-btn"
-				class="flex size-9 items-center justify-center rounded-lg border border-border text-primary transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
+				class="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-primary transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
 				aria-label="Page précédente"
 			>
 				<ChevronLeft class="size-4" />
@@ -109,13 +107,13 @@ const allDocuments: DocumentItem[] = [
 			<button
 				type="button"
 				id="next-page-btn"
-				class="flex size-9 items-center justify-center rounded-lg border border-border text-primary transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
+				class="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-primary transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
 				aria-label="Page suivante"
 			>
 				<ChevronRight class="size-4" />
 			</button>
 		</div>
-	</section>
+	</div>
 </div>
 
 <script>
@@ -128,7 +126,7 @@ const allDocuments: DocumentItem[] = [
 	const nextBtn = document.getElementById('next-page-btn') as HTMLButtonElement | null;
 	const pageIndicator = document.getElementById('page-indicator');
 
-	const ITEMS_PER_PAGE = 8;
+	const ITEMS_PER_PAGE = 5;
 	let selectedCategory = 'Tous les documents';
 	let currentPage = 1;
 
@@ -196,7 +194,7 @@ const allDocuments: DocumentItem[] = [
 						'whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border-primary bg-primary text-primary-foreground';
 				} else {
 					b.className =
-						'whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border-border bg-background text-primary hover:border-primary hover:bg-secondary/50';
+						'whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border-border bg-card text-primary hover:border-primary hover:bg-secondary/15';
 				}
 			});
 

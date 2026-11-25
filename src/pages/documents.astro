@@ -1,14 +1,3 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import DocumentsHeader from '../components/documents/DocumentsHeader.astro';
-import DocumentsFilterList from '../components/documents/DocumentsFilterList.astro';
-import LegalNote from '../components/documents/LegalNote.astro';
+return Astro.redirect('/mairie#publications', 301);
 ---
-
-<Layout title="Documents & Transparence - Mairie de Saint-Savin">
-	<main>
-		<DocumentsHeader />
-		<DocumentsFilterList />
-		<LegalNote />
-	</main>
-</Layout>

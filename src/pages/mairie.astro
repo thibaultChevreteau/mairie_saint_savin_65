@@ -1,0 +1,388 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DocumentsFilterList from '../components/documents/DocumentsFilterList.astro';
+import LegalNote from '../components/documents/LegalNote.astro';
+import {
+	ArrowDownRight,
+	Building2,
+	ChevronDown,
+	ExternalLink,
+	Landmark,
+	Users,
+} from 'lucide-astro';
+
+const councillors = [
+	{ name: 'Jean-Bertrand Haurine', role: 'Maire', skills: [], mandates: ['CCPVG', 'SIAEP', 'SDE 65', 'CAO'], featured: true },
+	{ name: 'Benoît Toulouzet', role: 'Maire-Adjoint', skills: ['Aménagement / travaux'], mandates: ['Président de la CSVSS', 'CAO'], featured: true },
+	{ name: 'Sylvie Ligneau', role: 'Maire-Adjointe', skills: ['Socioculturel', 'Communication', 'Associations', 'Action sociale', 'Enfance & jeunesse'], mandates: [] },
+	{ name: 'Mathieu Omisos', role: 'Maire-Adjoint', skills: ['Administration / finances', 'Patrimoine'], mandates: ['SIAEP', 'CAO', 'CLECT', 'SPL des Thermes'], featured: true },
+	{ name: 'Françoise Bayoumeu', role: 'Conseillère Municipale', skills: ['Patrimoine', 'Histoire du village', 'Socioculturel'], mandates: ['CSVSS'] },
+	{ name: 'Aurélien Saint-Martin', role: 'Conseiller Municipal', skills: ['Patrimoine'], mandates: [] },
+	{ name: 'Myriam Schnebelen', role: 'Conseillère Municipale', skills: ['Socioculturel', 'Administration / finances', 'Aménagement', 'Parc locatif'], mandates: [] },
+	{ name: 'Nicolas Cunha-Somprou', role: 'Conseiller Municipal', skills: ['Aménagement'], mandates: ['CAO'] },
+	{ name: 'Héloïse Pilgean', role: 'Conseillère Municipale', skills: ['Socioculturel'], mandates: ['CLECT', 'CAO'] },
+	{ name: 'Camille Bourdet', role: 'Conseillère Municipale', skills: ['Aménagement', 'Socioculturel', 'Parc locatif'], mandates: ['SDE 65', 'SIAEP'] },
+	{ name: 'Thibault Chevreteau', role: 'Conseiller Municipal', skills: ['Socioculturel', 'Accès au numérique', 'Aménagement'], mandates: ['CAO'] },
+];
+
+const organizations = [
+	{
+		acronym: 'CCPVG',
+		name: 'Communauté de Communes Pyrénées Vallées des Gaves',
+		description:
+			'Regroupe 46 communes sur 5 vallées et près de 15 500 habitants, avec son siège à Argelès-Gazost. Ses compétences du quotidien couvrent les déchets, l’action sociale, l’enfance et la jeunesse, l’habitat, l’urbanisme, les transports, le développement économique et le tourisme.',
+		representatives: ['Jean-Bertrand Haurine'],
+		url: 'https://ccpvg.fr',
+	},
+	{
+		acronym: 'CSVSS',
+		name: 'Commission Syndicale de la Vallée de Saint-Savin',
+		description:
+			'Institution historique créée en 1840/1841, elle gère le patrimoine indivis des sept communes de la vallée. Ses missions incluent 8 500 hectares d’estives, le pastoralisme et l’agriculture de montagne, le patrimoine bâti et touristique, ainsi que la coordination Natura 2000. Siège : Mairie de Saint-Savin, 2 place Duhourcau.',
+		representatives: ['Benoît Toulouzet (Président)', 'Françoise Bayoumeu'],
+		url: 'https://csvss.fr',
+	},
+	{
+		acronym: 'SIAEP',
+		name: 'Syndicat Intercommunal d’Adduction d’Eau Potable de Lau-Balagnas / Saint-Savin',
+		description:
+			'Syndicat intercommunal à vocation unique qui assure le captage, le traitement et la distribution de l’eau potable pour Saint-Savin et Lau-Balagnas. La présidence est assurée par Jean-Bertrand Haurine.',
+		representatives: ['Jean-Bertrand Haurine', 'Mathieu Omisos', 'Camille Bourdet'],
+	},
+	{
+		acronym: 'SDE 65',
+		name: 'Syndicat Départemental d’Énergie des Hautes-Pyrénées',
+		description:
+			'Syndicat mixte basé à Tarbes qui accompagne les communes pour la distribution d’électricité, l’éclairage public, les réseaux de télécommunication, les bornes de recharge et la transition énergétique.',
+		representatives: ['Jean-Bertrand Haurine', 'Camille Bourdet'],
+		url: 'https://sde-65.com',
+	},
+	{
+		acronym: 'SPL',
+		name: 'SPL des Thermes de Cauterets',
+		description:
+			'Société Publique Locale chargée de l’exploitation et de la valorisation des Thermes de César, des Thermes des Griffons et du centre thermoludique des Bains du Rocher, piliers de l’économie thermale et touristique de la vallée.',
+		representatives: ['Mathieu Omisos'],
+	},
+];
+
+const navLinks = [
+	{ href: '#equipe', label: 'L’Équipe municipale' },
+	{ href: '#publications', label: 'Documents & Délibérations' },
+	{ href: '#intercommunalite', label: 'Intercommunalité & Instances' },
+];
+---
+
+<Layout title="La Mairie & Intercommunalité - Mairie de Saint-Savin">
+	<main id="contenu">
+		<nav class="mx-auto max-w-7xl px-4 py-4 lg:px-8" aria-label="Fil d’Ariane">
+			<ol class="flex items-center gap-2 text-sm text-muted-foreground">
+				<li><a href="/" class="hover:text-primary">Accueil</a></li>
+				<li aria-hidden="true" class="text-muted-foreground/50">/</li>
+				<li aria-current="page" class="text-primary">La Mairie</li>
+			</ol>
+		</nav>
+
+		<section class="mx-auto max-w-7xl px-4 pb-9 pt-7 lg:px-8 lg:pb-12">
+			<div class="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+				<div>
+					<p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+						Votre commune · Hautes-Pyrénées · 65400
+					</p>
+					<h1 class="max-w-3xl font-serif text-4xl leading-tight text-primary sm:text-5xl">
+						La Mairie &amp; Intercommunalité
+					</h1>
+					<p class="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+						Hub central regroupant l’équipe municipale, la transparence administrative et nos partenariats institutionnels.
+					</p>
+				</div>
+				<a
+					href="#equipe"
+					class="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+				>
+					Découvrir la mairie <ArrowDownRight class="size-4" />
+				</a>
+			</div>
+		</section>
+
+		<nav
+			id="mairie-subnav"
+			class="sticky top-0 z-20 border-y border-border bg-background/95 px-4 shadow-sm backdrop-blur"
+			aria-label="Navigation rapide"
+		>
+			<div class="mx-auto flex max-w-7xl gap-6 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+				{
+					navLinks.map((link, index) => (
+						<a
+							href={link.href}
+							data-subnav-link
+							class={`whitespace-nowrap border-b-2 pb-0.5 text-sm font-semibold transition-colors hover:text-secondary ${
+								index === 0 ? 'border-secondary text-secondary' : 'border-transparent text-primary'
+							}`}
+						>
+							{link.label}
+						</a>
+					))
+				}
+			</div>
+		</nav>
+
+		<section id="equipe" class="scroll-mt-16 bg-white/60 px-4 py-16 lg:px-8 lg:py-20">
+			<div class="mx-auto max-w-7xl">
+				<div class="max-w-3xl">
+					<h2 class="font-serif text-3xl text-primary sm:text-4xl">L’Équipe Municipale</h2>
+					<p class="mt-3 text-base leading-7 text-muted-foreground">
+						Les agents communaux et les élus au service des habitants de Saint-Savin.
+					</p>
+				</div>
+
+				<div class="mt-10">
+					<h3 class="font-serif text-xl text-primary">Les agents communaux</h3>
+					<div class="mt-4 grid gap-4 md:grid-cols-2">
+						<article class="rounded-2xl border border-border border-l-4 border-l-secondary bg-card p-6 shadow-sm sm:p-7">
+							<div class="flex items-start gap-4">
+								<span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-primary">
+									<Users class="size-5" />
+								</span>
+								<div class="min-w-0">
+									<h4 class="font-serif text-xl text-primary">Alice Cholet</h4>
+									<p class="mt-1 text-sm font-semibold text-secondary">Secrétaire de Mairie</p>
+									<p class="mt-3 text-sm leading-6 text-muted-foreground">
+										Elle vous accueille aux horaires d’ouverture et fait le lien avec les élus, elle est l’assistante indispensable de notre équipe.
+									</p>
+									<div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
+										<span class="font-semibold text-primary">Accueil en mairie</span>
+										<span class="rounded-full bg-secondary/10 px-3 py-1.5 text-secondary">Lun. 14h–19h</span>
+										<span class="rounded-full bg-secondary/10 px-3 py-1.5 text-secondary">Mer. 14h–17h</span>
+										<span class="rounded-full bg-secondary/10 px-3 py-1.5 text-secondary">Jeu. 14h–18h</span>
+									</div>
+								</div>
+							</div>
+						</article>
+						<article class="rounded-2xl border border-border border-l-4 border-l-primary bg-card p-6 shadow-sm sm:p-7">
+							<div class="flex items-start gap-4">
+								<span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+									<Building2 class="size-5" />
+								</span>
+								<div>
+									<h4 class="font-serif text-xl text-primary">Davy Didier</h4>
+									<p class="mt-1 text-sm font-semibold text-secondary">Employé Communal</p>
+									<p class="mt-3 text-sm leading-6 text-muted-foreground">
+										Il est chargé des travaux courants et de l’entretien des espaces verts.
+									</p>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+
+				<div class="mt-14">
+					<div class="flex flex-wrap items-end justify-between gap-3">
+						<div>
+							<h3 class="font-serif text-2xl text-primary">Le Conseil municipal</h3>
+							<p class="mt-2 text-sm text-muted-foreground">Une équipe engagée au service de la commune.</p>
+						</div>
+						<span class="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-primary">11 élus</span>
+					</div>
+					<div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+						{
+							councillors.map((person, index) => (
+								<article
+									class={`rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${
+										person.featured ? 'border-secondary/40' : 'border-border'
+									}`}
+								>
+									<div class="flex items-start gap-3">
+										<div
+											class={`flex size-12 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${
+												index === 0
+													? 'border-primary bg-primary text-primary-foreground'
+													: 'border-secondary/30 bg-secondary/10 text-primary'
+											}`}
+											aria-hidden="true"
+										>
+											{person.name
+												.split(' ')
+												.map((part) => part[0])
+												.slice(0, 2)
+												.join('')}
+										</div>
+										<div class="min-w-0">
+											<h4 class="font-semibold leading-5 text-primary">{person.name}</h4>
+											<p class="mt-1 text-xs font-semibold text-secondary">{person.role}</p>
+										</div>
+									</div>
+									{person.skills.length > 0 && (
+										<div class="mt-4">
+											<p class="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Domaines</p>
+											<div class="mt-2 flex flex-wrap gap-1.5">
+												{person.skills.map((skill) => (
+													<span class="rounded-full bg-secondary/10 px-2.5 py-1 text-xs text-primary">{skill}</span>
+												))}
+											</div>
+										</div>
+									)}
+									{person.mandates.length > 0 && (
+										<div class="mt-4 border-t border-border pt-3">
+											<p class="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Instances</p>
+											<div class="mt-2 flex flex-wrap gap-1.5">
+												{person.mandates.map((mandate) => (
+													<span class="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-white">
+														{mandate}
+													</span>
+												))}
+											</div>
+										</div>
+									)}
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="publications" class="scroll-mt-16 px-4 py-16 lg:px-8 lg:py-20">
+			<div class="mx-auto max-w-7xl">
+				<div class="max-w-3xl">
+					<p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+						Transparence &amp; Délibérations
+					</p>
+					<h2 class="font-serif text-3xl text-primary sm:text-4xl">
+						Documents &amp; Délibérations Municipales
+					</h2>
+					<p class="mt-3 text-base leading-7 text-muted-foreground">
+						Consultez et téléchargez les comptes-rendus des conseils municipaux et bulletins d’information de la commune de Saint-Savin.
+					</p>
+				</div>
+
+				<DocumentsFilterList />
+				<LegalNote />
+			</div>
+		</section>
+
+		<section id="intercommunalite" class="scroll-mt-16 bg-white/60 px-4 py-16 lg:px-8 lg:py-20">
+			<div class="mx-auto max-w-7xl">
+				<div class="max-w-3xl">
+					<h2 class="font-serif text-3xl text-primary sm:text-4xl">Intercommunalité &amp; Instances Locales</h2>
+					<p class="mt-3 text-base leading-7 text-muted-foreground">
+						Saint-Savin au cœur des synergies de la Vallée des Gaves et des syndicats intercommunaux.
+					</p>
+				</div>
+
+				<div class="mt-9 grid gap-4 lg:grid-cols-2">
+					{
+						organizations.map((org) => (
+							<article class="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-7">
+								<div class="flex items-start gap-4">
+									<span class="shrink-0 rounded-lg bg-secondary px-3 py-2 text-xs font-bold tracking-wide text-white">
+										{org.acronym}
+									</span>
+									<div class="min-w-0">
+										<h3 class="font-serif text-lg leading-6 text-primary">{org.name}</h3>
+										<p class="mt-3 text-sm leading-6 text-muted-foreground">{org.description}</p>
+									</div>
+								</div>
+								<div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+									<div>
+										<p class="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+											Représentants de la commune
+										</p>
+										<p class="mt-1 text-sm font-medium text-primary">{org.representatives.join(' · ')}</p>
+									</div>
+									{org.url && (
+										<a
+											href={org.url}
+											target="_blank"
+											rel="noreferrer"
+											class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+										>
+											Site officiel <ExternalLink class="size-3.5" />
+											<span class="sr-only"> (nouvel onglet)</span>
+										</a>
+									)}
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="mt-8 rounded-2xl border border-secondary/40 bg-accent/70 p-5 sm:p-7">
+					<div class="flex items-start gap-3">
+						<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/70 text-primary">
+							<Landmark class="size-5" />
+						</span>
+						<div>
+							<h3 class="font-serif text-xl text-primary">Comprendre les commissions</h3>
+							<p class="mt-1 text-sm text-primary/75">Quelques sigles utiles pour suivre la vie municipale.</p>
+						</div>
+					</div>
+					<div class="mt-5 divide-y divide-primary/15 rounded-xl border border-primary/15 bg-white/55">
+						<details class="group p-4 sm:p-5">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-primary marker:hidden">
+								<span>CAO — Commission d’Appel d’Offres</span>
+								<ChevronDown class="size-4 shrink-0 transition-transform group-open:rotate-180" />
+							</summary>
+							<p class="mt-3 text-sm leading-6 text-primary/80">
+								Commission chargée d’examiner les candidatures et les offres lors des procédures de marchés publics et d’attribuer les marchés selon des critères transparents.
+							</p>
+							<p class="mt-2 text-xs leading-5 text-primary/70">
+								<strong>Membres :</strong> Jean-Bertrand Haurine, Benoît Toulouzet, Mathieu Omisos, Nicolas Cunha-Somprou, Héloïse Pilgean et Thibault Chevreteau.
+							</p>
+						</details>
+						<details class="group p-4 sm:p-5">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-primary marker:hidden">
+								<span>CLECT — Commission Locale d’Évaluation des Charges Transférées</span>
+								<ChevronDown class="size-4 shrink-0 transition-transform group-open:rotate-180" />
+							</summary>
+							<p class="mt-3 text-sm leading-6 text-primary/80">
+								Commission réunissant la CCPVG et ses communes membres afin d’évaluer avec neutralité financière le coût des compétences transférées entre les communes et l’intercommunalité.
+							</p>
+							<p class="mt-2 text-xs leading-5 text-primary/70">
+								<strong>Délégués :</strong> Mathieu Omisos et Héloïse Pilgean.
+							</p>
+						</details>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	const subnavLinks = document.querySelectorAll<HTMLAnchorElement>('[data-subnav-link]');
+	const sections = ['equipe', 'publications', 'intercommunalite']
+		.map((id) => document.getElementById(id))
+		.filter((el): el is HTMLElement => el !== null);
+
+	function setActiveLink(activeId: string) {
+		subnavLinks.forEach((link) => {
+			const isMatch = link.getAttribute('href') === `#${activeId}`;
+			if (isMatch) {
+				link.classList.remove('border-transparent', 'text-primary');
+				link.classList.add('border-secondary', 'text-secondary');
+			} else {
+				link.classList.remove('border-secondary', 'text-secondary');
+				link.classList.add('border-transparent', 'text-primary');
+			}
+		});
+	}
+
+	if (sections.length > 0) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						setActiveLink(entry.target.id);
+					}
+				}
+			},
+			{
+				rootMargin: '-25% 0px -65% 0px',
+				threshold: 0,
+			}
+		);
+
+		sections.forEach((section) => observer.observe(section));
+	}
+</script>
